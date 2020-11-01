@@ -1,8 +1,8 @@
 package calculator_test
 
 import (
-	"fmt"
 	"calculator"
+	"fmt"
 	"testing"
 )
 
@@ -16,7 +16,7 @@ type testCase struct {
 func TestAdd(t *testing.T) {
 	t.Parallel()
 	testCases := []testCase {
-		{ a: 2, b: 2, want: 5 },
+		{ a: 2, b: 2, want: 4 },
 		{ a: 1, b: 1, want: 2 },
 		{ a: 5, b: 0, want: 5 },
 		{ a: 0, b: 0, want: 0 },
@@ -28,7 +28,6 @@ func TestAdd(t *testing.T) {
 		}
 
 	} 
-	
 
 }
 
@@ -78,6 +77,26 @@ func TestDivide(t *testing.T) {
 		fmt.Printf(" error: %s,", err)
 		if !tc.errExpected && tc.want != got {
 			t.Errorf("Divide(%f, %f): want %f, got %f", tc.a, tc.b, tc.want, got)
+		}
+		if tc.errExpected !=  (err != nil) {
+			t.Fatalf("Divide(%f, %f): unexpected error status: %v", tc.a, tc.b, err)
+		}
+	}
+} 
+
+
+func TestSqrt(t *testing.T) {
+	t.Parallel()
+	testCases := []testCase {
+		{ a: 4, want: 1, errExpected: false },
+		{ a: 1, want: 1, errExpected: false },
+		{ a: -5, want: 0, errExpected: true},
+	}
+	for _, tc:= range testCases {
+		got, err := calculator.Sqrt(tc.a, tc.b)
+		fmt.Printf(" error: %s,", err)
+		if !tc.errExpected && tc.want != got {
+			t.Errorf("Sqrt(%f): want %f, got %f", tc.a, tc.want, got)
 		}
 		if tc.errExpected !=  (err != nil) {
 			t.Fatalf("Divide(%f, %f): unexpected error status: %v", tc.a, tc.b, err)
