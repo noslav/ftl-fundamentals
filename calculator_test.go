@@ -84,16 +84,15 @@ func TestDivide(t *testing.T) {
 	}
 } 
 
-
 func TestSqrt(t *testing.T) {
 	t.Parallel()
 	testCases := []testCase {
-		{ a: 4, want: 1, errExpected: false },
+		{ a: 4, want: 2, errExpected: false },
 		{ a: 1, want: 1, errExpected: false },
 		{ a: -5, want: 0, errExpected: true},
 	}
 	for _, tc:= range testCases {
-		got, err := calculator.Sqrt(tc.a, tc.b)
+		got, err := calculator.Sqrt(tc.a)
 		fmt.Printf(" error: %s,", err)
 		if !tc.errExpected && tc.want != got {
 			t.Errorf("Sqrt(%f): want %f, got %f", tc.a, tc.want, got)
